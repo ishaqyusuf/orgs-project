@@ -72,6 +72,9 @@ export default function useList({
       //   this.show = this.listed = true;
       // }, 200);
     },
+    getItem(id: any) {
+      return this.itemsById[id]
+    },
     reset() {
       this.ids.splice(0)
       this.checkedIds.splice(0)

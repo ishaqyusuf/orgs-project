@@ -54,6 +54,7 @@
         </div>
         <div class="flex pt-4 justify-center">
           <button
+            @click="save()"
             class="bg-green-700 border border-green-400 px-3 text-gray-200"
           >
             Save
@@ -65,6 +66,7 @@
 </template>
 <script lang="ts">
 import { reactive, toRefs } from 'vue'
+import { useOrg } from '../utils/use-orgs'
 import CloseIcon from './icons/CloseIcon.vue'
 export default {
   props: {},
@@ -73,6 +75,7 @@ export default {
     let _data = reactive({
       show: false,
       form: {
+        id: null,
         name: '',
         status: '',
         type: '',
@@ -84,6 +87,23 @@ export default {
       close() {
         _data.show = false
         _data.form = {}
+      },
+      randomString(length: number = 16, chars: any = 'aA#') {
+        var mask = ''
+        if (chars.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz'
+        if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        if (chars.indexOf('#') > -1) mask += '0123456789'
+        if (chars.indexOf('!') > -1)
+          mask += '~`!@#$%^&*()_+-={}[]:";\'<>?,./|\\'
+        var result = ''
+        for (var i = length; i > 0; --i)
+          result += mask[Math.round(Math.random() * (mask.length - 1))]
+        return result
+      },
+      save() {
+        if (!this.form.id) this.form.id = this.randomString(17)
+        useOrg.list.addItem(this.form)
+        this.close()
       },
     })
     return {

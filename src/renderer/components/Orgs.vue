@@ -11,14 +11,20 @@
       sm:gap-8
     "
   >
-    <OrgCard v-for="(card, index) in 2" />
+    <template v-if="list">
+      <OrgCard
+        v-for="(orgId, index) in list.ids"
+        :org="list.getItem(orgId)"
+        :id="orgId"
+      />
+    </template>
   </div>
   <!-- <div class="bg-" -->
   <NewOrg ref="orgForm"></NewOrg>
   <!-- </div> -->
 </template>
 <script lang="ts">
-import { onMounted, provide, ref } from 'vue'
+import { onMounted, provide, ref, toRefs } from 'vue'
 import useList from '../utils/list'
 import OrgCard from './OrgCard.vue'
 import NewOrg from './NewOrg.vue'
@@ -28,17 +34,20 @@ export default {
   props: {},
   components: { OrgCard, NewOrg },
   setup(props, { emit }) {
-    let list = useList({
+    // let list = useList({
+    //   storeKey: 'orgs_list',
+    // })
+    // provide('list', list)
+
+    // let orgForm = ref<any>()
+    useOrg.orgForm = ref<any>()
+    useOrg.list = useList({
       storeKey: 'orgs_list',
     })
-    provide('list', list)
-
-    let orgForm = ref<any>()
-    useOrg.orgForm = orgForm
     onMounted(() => {
-      list.load()
+      useOrg.list.load()
     })
-    return { orgForm, list }
+    return { ...toRefs(useOrg) }
   },
 }
 </script>

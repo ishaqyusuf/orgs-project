@@ -1,6 +1,7 @@
 <template>
   <div class="bg-gray-800 rounded-lg text-sm">
     <div
+      v-if="org"
       class="
         border-b
         text-gray-500
@@ -26,8 +27,8 @@
       <div class="flex justify-between">
         <div class="p-2">
           <p class="font-semibold mb-2">sales-feature-scratch</p>
-          <p class="text-gray-400 text-xs mb-1">Type: Scratch</p>
-          <p class="text-gray-400 text-xs">Org Id: 00DR000000YAZeUAO</p>
+          <p class="text-gray-400 text-xs mb-1">Type: {{ org.type }}</p>
+          <p class="text-gray-400 text-xs">Org Id: {{ org.id }}</p>
         </div>
         <div
           class="p-1 rounded-full bg-green-500 absolute top-o right-0 m-2 mt-4"
@@ -41,7 +42,10 @@ import CloudIcon from './icons/CloudIcon.vue'
 import OpenInNewIcon from './icons/OpenInNewIcon.vue'
 import MenuIcon from './icons/MenuIcon.vue'
 export default {
-  props: {},
+  props: {
+    org: Object,
+    id: String,
+  },
   components: { CloudIcon, OpenInNewIcon, MenuIcon },
   setup(props, { emit }) {
     return {}
