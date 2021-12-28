@@ -26,7 +26,7 @@
       </div>
       <div class="flex justify-between">
         <div class="p-2">
-          <p class="font-semibold mb-2">sales-feature-scratch</p>
+          <p class="font-semibold mb-2">{{ org.name }}</p>
           <p class="text-gray-400 text-xs mb-1">Type: {{ org.type }}</p>
           <p class="text-gray-400 text-xs">Org Id: {{ org.id }}</p>
         </div>
